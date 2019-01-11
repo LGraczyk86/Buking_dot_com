@@ -1,0 +1,125 @@
+﻿@model Buking.Models.Database.GuestHouse
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>GuestHouse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetNr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Zdjęcie")
+        </dt>
+
+        <dd>
+            <img src="~/Upload/@Model.Path" alt="" title="@Model.Name" height="250" width="250" />
+        </dd>
+    </dl>
+    @Html.ActionLink("Zrób rezerwacje", "Create", "Booked", new { houseId = Model.Id }, null)
+
+    <table class="table">
+        <tr>
+            <th>Kto</th>
+            <th>Od</th>
+            <th>Do</th>
+            <th></th>
+        </tr>
+        @if (Model.Bookeds == null || Model.Bookeds.Count == 0)
+        {
+            <tr>
+                <td colspan="4">
+                    Brak wpisów
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var booked in Model.Bookeds)
+            {
+            <tr>
+                <td>
+                    @booked.CreatedBy.UserName
+                </td>
+                <td>
+                    @booked.DateStart
+                </td>
+                <td>
+                    @booked.DateStop
+                </td>
+                <td>
+                    @if (booked.DateStop < DateTime.Now)
+                    {
+                        <p>Po rezerwacji</p>
+                    }
+                    else
+                    {
+                        <p>W trakcie rezerwacji</p>
+                    }
+                    @*if (booked.DateStart < DateTime.Now && booked.DateStop > DateTime.Now)*@
+
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", "Booked", new { id = booked.Id }, null) |
+                    @Html.ActionLink("Szczegóły", "Details", "Booked", new { id = booked.Id }, null) |
+                    @Html.ActionLink("Usuń", "Delete", "Booked", new { id = booked.Id }, null)
+                </td>
+            </tr>
+            }
+        }
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

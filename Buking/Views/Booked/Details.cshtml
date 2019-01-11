@@ -1,0 +1,51 @@
+﻿@model Buking.Models.Database.Booked
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Booked</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GuestHouse.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GuestHouse.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateStop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateStop)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy.UserName)
+            @Html.DisplayFor(model => model.CreatedBy.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

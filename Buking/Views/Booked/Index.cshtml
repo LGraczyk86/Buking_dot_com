@@ -1,0 +1,65 @@
+﻿@using System.Drawing
+@model IEnumerable<Buking.Models.Database.Booked>
+
+@{
+    ViewBag.Title = "Rezerwacje";
+}
+
+<h2>Rezerwacje</h2>
+
+<p>
+    @Html.ActionLink("Rezerwuj", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GuestHouse.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStop)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if(User.Identity.Name == item.CreatedBy.UserName)
+         {
+
+             <tr>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.GuestHouse.Name)
+                 </td>
+                 <td>
+                     @if (item.DateStart.Day < DateTime.Now.Day)
+                     {
+                         @Html.DisplayFor(modelItem => item.DateStart, new {@class = "alert-red-text"})
+                     }
+                     else
+                     {
+                         @Html.DisplayFor(modelItem => item.DateStart)
+                     }
+                 </td>
+                 <td>
+                     @if (item.DateStop.Day <= DateTime.Now.Day)
+                     {
+                         @Html.DisplayFor(modelItem => item.DateStop, new {@class = "alert-red-text"})
+                     }
+                     else
+                     {
+                         @Html.DisplayFor(modelItem => item.DateStop)
+                     }
+                 </td>
+                 <td>
+                     @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                     @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                     @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                 </td>
+             </tr>
+         }
+    }
+
+</table>

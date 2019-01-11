@@ -1,0 +1,69 @@
+﻿@using Buking.Models.Database
+@model Buking.Models.Database.Booked
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    <script>
+        function myFunction() {
+            var txt;
+            if (confirm("Czyjesteś pewny rezerwacji")) {
+                txt = "Super";
+            } else {
+                txt = ":(";
+            }
+            document.getElementById("demo").innerHTML = txt;
+        }
+    </script>
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(p => p.GuestHouse_Id)
+
+    @Html.HiddenFor(model => model.CreatedBy)
+
+
+    <div class="form-horizontal">
+        <h4>Booked</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateStart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.DateStart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateStop, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateStop, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.DateStop, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.GuestHouse_Id, "GuestHouse_Id", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+
+
+                @*@Html.ValidationMessageFor(model => model.GuestHouse_Id, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zarezerwuj" class="btn btn-default"  onclick = "myFunction()" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Wróc do strony Głównej", "Index", "Home")
+</div>
